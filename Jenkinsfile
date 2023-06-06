@@ -25,7 +25,7 @@ pipeline{
 		}
 		stage ('Code Package') {
 		  steps {
-			echo 'code packing is starting
+			echo 'code packing is starting'
 			sh 'mvn clean package'
 			echo 'code packing is completed'
 			}
