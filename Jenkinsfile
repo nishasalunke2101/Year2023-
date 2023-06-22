@@ -16,6 +16,13 @@ pipeline{
 			echo 'code compilation is completed'
 			}
 		}
+		stage ('Code Test') {
+		  steps {
+		  echo 'code testing is starting'
+		  sh 'mvn clean test'
+		  echo 'code testing is completed'
+		  }
+		}
 		stage ('Code Package') {
 		  steps {
 			echo 'code packing is starting'
@@ -76,5 +83,6 @@ pipeline{
                      sh 'docker images'
                    }
           }
-	    }
+
+	}
 }
