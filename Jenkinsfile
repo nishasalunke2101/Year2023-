@@ -1,4 +1,4 @@
-pipeline{
+hipipeline{
 
 	options{
 		buildDiscarder(logRotator(numToKeepStr: '5', artifactNumToKeepStr: '5' ))
