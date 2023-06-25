@@ -33,7 +33,7 @@ pipeline{
 		stage('Building & Tag Docker Image') {
                             steps {
                                 echo 'Starting Building Docker Image'
-                                sh 'docker build -t nishasalunke/year2023 .'
+                                sh 'docker build -t year2023 .'
                                 sh 'docker build -t year2023 .'
                                 echo 'Completed  Building Docker Image'
                             }
@@ -51,7 +51,7 @@ pipeline{
                                  withCredentials([string(credentialsId: 'dockerhubCred', variable: 'dockerhubCred')]) {
                                      sh 'docker login docker.io -u nishasalunke -p ${dockerhubCred}'
                                      echo "Push Docker Image to DockerHub: In Progress"
-                                     sh 'docker push nishasalunke/year2023:latest'
+                                     sh 'docker push year2023:latest'
                                      echo "Push Docker Image to DockerHub: Completed"
                                  }
                               }
