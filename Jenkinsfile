@@ -37,7 +37,7 @@ pipeline {
             steps {
                 echo 'Starting Building Docker Image'
                 sh 'docker build -t nishasalunke/year2023 .'
-                sh 'docker build -t year2023 .
+                sh 'docker build -t year2023 .'
                 echo 'Completed  Building Docker Image'
             }
         }
