@@ -18,6 +18,7 @@ pipeline {
 				echo 'code compilation is completed'
             }
         }
+
         stage('Code Test') {
             steps {
                 echo 'code testing is starting'
@@ -36,7 +37,7 @@ pipeline {
             steps {
                 echo 'Starting Building Docker Image'
                 sh 'docker build -t nishasalunke/year2023 .'
-                sh 'docker build -t year2023 .'
+                sh 'docker build -t year2023 .
                 echo 'Completed  Building Docker Image'
             }
         }
@@ -62,7 +63,7 @@ pipeline {
         stage(' Docker Image Push to Amazon ECR') {
            steps {
               script {
-                 withDockerRegistry([credentialsId:ecr-credentials, url:"https://497150727327.dkr.ecr.ap-south-1.amazonaws.com"]){
+                 withDockerRegistry([credentialsId:'ecr:ap-south-1:ecr-credentials', url:"https://497150727327.dkr.ecr.ap-south-1.amazonaws.com"]){
                  sh """
                  echo "List the docker images present in local"
                  docker images
