@@ -18,7 +18,6 @@ pipeline {
 				echo 'code compilation is completed'
             }
         }
-
         stage('Code Test') {
             steps {
                 echo 'code testing is starting'
@@ -60,23 +59,19 @@ pipeline {
               }
             }
         }
-        stage(' Docker Image Push to Amazon ECR') {
+		stage('Upload the docker Image to Nexus') {
            steps {
               script {
-                 withDockerRegistry([credentialsId:'ecr:ap-south-1:ecr-credentials', url:"https://497150727327.dkr.ecr.ap-south-1.amazonaws.com"]){
-                 sh """
-                 echo "List the docker images present in local"
-                 docker images
-                 echo "Tagging the Docker Image: In Progress"
-                 docker tag year2023:latest 497150727327.dkr.ecr.ap-south-1.amazonaws.com/year2023:latest
-                 echo "Tagging the Docker Image: Completed"
-                 echo "Push Docker Image to ECR : In Progress"
-                 docker push 497150727327.dkr.ecr.ap-south-1.amazonaws.com/year2023:latest
-                 echo "Push Docker Image to ECR : Completed"
-                 """
+                 withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]){
+				 sh 'docker login http://43.205.199.64:8085/repository/year2023/ -u admin -p ${PASSWORD}'
+                 echo "Push Docker Image to Nexus : In Progress"
+                 sh 'docker tag year2023 43.205.199.64:8085/year2023:latest'
+                 sh 'docker push 43.205.199.64:8085/year2023'
+                 echo "Push Docker Image to Nexus : Completed"
                  }
               }
-           }
-        }
+            }
+		}
+
     }
 }
